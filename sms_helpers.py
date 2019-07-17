@@ -5,6 +5,10 @@ import unicodedata
 import re
 import json
 
+import nltk
+from nltk.tokenize.toktok import ToktokTokenizer
+from nltk.corpus import stopwords
+
 def original_word_count(df):
     '''This function adds a new column to the dataframe which counts the number of words in the README file'''
     df[['original_cnt']] = df[['original']]
@@ -48,11 +52,30 @@ def article_percent(df):
     df['article_per_kept']=df['article_per_kept'].astype(float)
     return df
 
+def remove_stopwords(df):
+    
+    df[['clean']] = df[['article']]
+    stopword_list = stopwords.words('english')
+    df['clean'] = df['clean'].apply(lambda x: ' '.join([word for word in x.split() if word not in stopword_list]))
+
+    return df
+
+def clean_word_count(df):
+    '''This function adds a new column to the dataframe and does a word count of the clean column.'''
+    df[['clean_cnt']] = df[['clean']]
+    clean_nums = list(range(df.original.count()))
+    for clean_num in clean_nums:
+        df.clean_cnt[clean_num] = len(df['clean'][clean_num].split())
+    df['clean_cnt']=df['clean_cnt'].astype(int)
+    return df
+
 def text_prep(df):
 
     df = original_word_count(df)
     df = basic_clean(df)
     df = article_word_count(df)
     df = article_percent(df)
+    df = remove_stopwords(df)
+    df = clean_word_count(df)
 
     return df
