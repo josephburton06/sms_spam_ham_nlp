@@ -1,0 +1,1 @@
+### This is a project consisting of NLP to evaluate SMS text messages to classify whether they are spam or actual (ham) messages.  A similiar project has been completed, but this project consists of texts from Kaggle.
