@@ -1,1 +1,3 @@
 ### This is a project consisting of NLP to evaluate SMS text messages to classify whether they are spam or actual (ham) messages.  A similiar project has been completed, but this project consists of texts from Kaggle.
+
+### Our first iteration uses only TF-IDF for classification.  We can rerun this later using the TF-IDF as a feature in another classification model that also uses word counts, etc.  This first run through is seeing some great results with 96% accuracy on the test set.
